@@ -1,0 +1,93 @@
+<!DOCTYPE>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="PQG">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Control submit por evento formulario</title>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		function validaAP(campo){
+			var bRet = false;
+			if (campo.value == "")
+				alert("Faltan Apellido paterno");
+			else
+				if (campo.value==null)
+					alert("No tiene formato de apellidoP");
+				else
+					bRet = true;
+			return bRet;
+		}
+
+		function validaAM(campo){
+			var bRet = false;
+			if (campo.value == "")
+				alert("Faltan Apellido materno");
+			else
+				if (campo.value==null)
+					alert("No tiene formato de apellidoM");
+				else
+					bRet = true;
+			return bRet;
+		}
+
+		function validaN(campo){
+			var bRet = false;
+			if (campo.value == "")
+				alert("Falta nombre");
+			else
+				if (campo.value==null)
+					alert("No tiene formato de Nombre");
+				else
+					bRet = true;
+			return bRet;
+		}
+
+		function validaFecha(campo){
+        var bRet = false;
+        var dHoy = new Date();
+        var dCapt = null;
+        if (campo.value == "")
+          alert("Faltan datos");
+        else{
+          dCapt = validaFecha(campo.value);
+          if (dCapt != null && dCapt < dHoy)
+            bRet = true;
+          else
+            alert("La fecha debe ser menor a la fecha actual");
+        }
+        return bRet;
+	  }
+	  
+	  function generaRFC(campo1,campo2,campo3,campo4){
+		  var RFC = "";
+		  
+			  //alert("El RFC es: "+campo1.value+campo2.value+campo3.value+campo4.value);
+		  if(validaAP(campo1)==true && validaAM(campo2)==true && validaN(campo3)==true /*&& validaFecha(campo4) == true*/){
+			  RFC = ""+campo1.value.substring(0,2)+campo2.value[0]+campo3.value[0]+parseInt(campo4.value.substring(2,4), 10)+parseInt(campo4.value.substring(5,7), 10)+parseInt(campo4.value.substring(8,10), 10);
+			  alert("El RFC es: "+campo1.value+campo2.value+campo3.value+campo4.value);	
+			  alert("El RFC es: "+RFC);
+		  }else
+		  alert("No fue posible generar el RFC");
+	  }
+	
+	</script>
+	<form>
+		Apellido Paterno <input type="text" name="txtAP" maxlength="15" size="15"/><br>
+		Apellido Materno <input type="text" name="txtAM" maxlength="15" size="15"/><br>
+		Nombre <input type="text" name="txtN" maxlength="13" size="30"/><br>
+		Fecha de Nacimiento <input type="date" name="txtFecha" min="1900-01-01"><br>
+		<!--RFC <input type="text" name="txtRFC" maxlength="13" size="15"/><br>-->
+		
+		<br/>
+		<!-- <input type="submit" onClick="return validaAP(txtAP);" onClick="return validaAM(txtAM);" onClick="return validaN(txtN);" onClick="return validaFecha(txtFecha);" onClick="return generaRFC(txtAPvalue="Generar RFC"/> -->
+		<input type="submit" onClick="return generaRFC(txtAP,txtAM,txtN,txtFecha);" value="Generar RFC"/>;
+		
+		
+		
+	</form>
+</body>
+</html>
